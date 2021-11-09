@@ -13,6 +13,7 @@ import addressimg from './img/address.png';
 import {worksData,cityNames} from "./Datas";
 import haversine from 'haversine-distance';
 import Loding from "./Loding";
+import {set} from "firebase/firebase-database";
 
 const Register = ({logout,userDetails,userstate,olduser}) => {
 
@@ -116,6 +117,7 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
 
     // -----------------  Data Validation functions start  ------------- //
 
+    var aluser = 0
 
     const usernameHandler = (e) => {
      const namevalue = e.target.value.trim()
@@ -134,19 +136,26 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
            document.querySelector("#username").style.border="1px solid red"
        }else if(usernames){
            console.log("inside mother fucker!!!!!")
+           let al = 0
            usernames.map((username)=>{
                if(username.name.toLowerCase() === namevalue.toLowerCase()){
                    setErrormsg("username Already exist")
                    document.querySelector(".form__next__btn").style.pointerEvents="none"
                    document.querySelector("#username").style.border="1px solid red"
-               }else{
-                   setErrormsg("")
-                   document.querySelector(".form__next__btn").style.pointerEvents="all"
-                   document.querySelector("#username").style.border="1px solid green"
-
+                   al+=1
                }
            })
+           if(al===0){
+               setErrormsg("")
+               document.querySelector(".form__next__btn").style.pointerEvents="all"
+               document.querySelector("#username").style.border="1px solid green"
+           }else{
+               setErrormsg("username Already exist")
+               document.querySelector(".form__next__btn").style.pointerEvents="none"
+               document.querySelector("#username").style.border="1px solid red"
+           }
        }else{
+           setErrormsg("")
            document.querySelector(".form__next__btn").style.pointerEvents="all"
            document.querySelector("#username").style.border="1px solid green"
        }
@@ -165,18 +174,25 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
             document.querySelector("#mobilenumber").style.border="1px solid red"
         }else if(numbervalue){
             console.log("inside mother fucker!!!!!")
+            let al = 0
             usernames.map((usermobile)=>{
                 if(usermobile.phonenumber === numbervalue){
                     setErrormsg("Mobilenumber Already exist")
                     document.querySelector(".form2__next__btn").style.pointerEvents="none"
                     document.querySelector("#mobilenumber").style.border="1px solid red"
-                }else{
-                    setErrormsg("")
-                    document.querySelector(".form2__next__btn").style.pointerEvents="all"
-                    document.querySelector("#mobilenumber").style.border="1px solid green"
-
+                    al+=1
                 }
             })
+
+            if(al===0){
+                setErrormsg("")
+                document.querySelector(".form2__next__btn").style.pointerEvents="all"
+                document.querySelector("#mobilenumber").style.border="1px solid green"
+            }else{
+                setErrormsg("Mobilenumber Already exist")
+                document.querySelector(".form2__next__btn").style.pointerEvents="none"
+                document.querySelector("#mobilenumber").style.border="1px solid red"
+            }
         }else{
             document.querySelector(".form2__next__btn").style.pointerEvents="all"
             document.querySelector("#mobilenumber").style.border="1px solid green"
