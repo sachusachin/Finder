@@ -20,14 +20,14 @@ function Home({logout,userDetails,userstate,olduser}) {
     },[]);
 
     console.log(details)
-    //
-    // useEffect(()=>{
-    //     const register = localStorage.getItem('reg');
-    //     if(register){
-    //         setRegUser(JSON.parse(register));
-    //         console.log("home reg : ",register);
-    //     }
-    // },[])
+
+    useEffect(()=>{
+        const register = localStorage.getItem('reg');
+        if(register){
+            setRegUser(JSON.parse(register));
+            console.log("home reg : ",register);
+        }
+    },[])
 
 
     // //Insert new user registration data into the database

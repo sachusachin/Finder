@@ -83,6 +83,7 @@ function App() {
         // console.log("snap : ",snapshot)
 
         if (snapshot.exists){
+            alert("yes")
             setUserstate(true)
             setOlduser(true)
         }else if(!snapshot.exists){
