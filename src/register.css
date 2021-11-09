@@ -1,0 +1,382 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.register{
+    width: 100vw;
+    height: 100vh;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.register .register__body{
+    max-width: 800px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0 30px 30px rgba(0,0,0,0.17888);
+}
+.register .register__body .register__top{
+    width: 100%;
+    height: 80px;
+    /*background-color: red;*/
+    display: flex;
+    align-items: center;
+}
+.register .register__body .register__top .back__btn{
+    width: 18%;
+    height: 80px;
+    /*background-color: blue;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.register .register__body .register__top .back__btn button{
+    width: 100%;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-size: 25px;
+    cursor: pointer;
+}
+.register .register__body .register__top .back__btn button:hover i{
+    transform: scale(.93);
+    transition: .3s ease-in-out;
+}
+.register .register__body .register__top .back__btn button i{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    background-color: #849cf4;
+    /*box-shadow: 0 8px 8px #849cf480;*/
+    color: white;
+    box-shadow: -7px 3px 30px 3px rgba(132,156,244,0.75);
+    -webkit-box-shadow: -7px 3px 30px 3px rgba(132,156,244,0.75);
+    -moz-box-shadow: -7px 3px 30px 3px rgba(132,156,244,0.75);
+    border-radius: 12px;
+}
+.register .register__body .register__top .logo__image{
+    width: 90%;
+    height: 80px;
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*display: flex;*/
+}
+.register .register__body .register__top .logo__image .image{
+    width: 78%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.register .register__body .register__top .logo__image .image img{
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+}
+.register .register__body .register__form{
+    width: 100%;
+    height: calc(100% - 80px);
+    background-color:red;
+}
+.register .register__body .register__form{
+    width: 100%;
+    height: calc(100% - 80px);
+    background-color:whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.register .register__body .register__form .register__form__head{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    height: 60px;
+    text-transform: capitalize;
+    color: #849cf4;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.register .register__body .register__form .register__form__body{
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    background-image: url("img/formbg.png");
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-shadow: 0 20px 20px rgba(0,0,0,0.17777);
+    overflow: hidden;
+}
+.register .register__body .register__form .register__form__body form{
+    width: 800%;
+    height: 100%;
+    display: flex;
+    transition: transform .5s ease-in-out;
+    /*background-color: red;*/
+}
+.username__form.active{
+    animation: username .5s linear forwards;
+}
+
+.username__form,
+.phonenumber__form,
+.gender__form,
+.working__form,
+.city__form,
+.address__form{
+    position: relative;
+    height: 100%;
+    max-width: 300px;
+    width: 100%;
+}
+@keyframes username {
+    0%{
+        transform: translateX(0) rotate(0);
+        opacity: 1;
+    }
+    100%{
+        transform: translateX(-150%) rotate(19deg);
+        opacity: 0;
+    }
+
+}
+
+
+.register .register__body .register__form .register__form__body form .form__divs{
+    width: 100%;
+    height: 100%;
+    /*background-color: yellow;*/
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__image{
+    width: 100%;
+    height: 80px;
+    /*background-color: green;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__image.gender{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register .register__body .register__form .register__form__body form .form__divs .div__image .image{
+    width: 70px;
+    height: 70px;
+    /*background-color: blue;*/
+    border-radius: 50%;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__image.gender .image{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    color: #849cf4;
+    font-size: 26px;
+    font-weight: bold;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__image .image img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+
+.register .register__body .register__form .register__form__body form .form__divs .gender__type__div{
+    width: 100%;
+    height: 200px;
+    background-color: white;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.register .register__body .register__form .register__form__body form .form__divs .gender__type__div .type__option{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+.register .register__body .register__form .register__form__body form .form__divs .gender__type__div .type__option .image{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: .3s ease-in-out;
+}
+.register .register__body .register__form .register__form__body form .form__divs .gender__type__div .type__option .image img{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 0 8px 8px rgba(0,0,0,0.178888);
+    cursor: pointer;
+
+}
+.register .register__body .register__form .register__form__body form .form__divs .gender__type__div .type__option .image:hover,
+.register .register__body .register__form .register__form__body form .form__divs .gender__type__div .type__option .image.active,
+.register .register__body .register__form .register__form__body form .form__divs .gender__type__div .type__option .image:hover img,
+.register .register__body .register__form .register__form__body form .form__divs .gender__type__div .type__option .image.active img{
+    transform: scale(1.04);
+    box-shadow:inset 0 8px 8px rgba(0,0,0,0.178888),
+                        0 8px 8px rgba(132,156,244,0.75);
+
+}
+
+
+
+
+
+
+.register .register__body .register__form .register__form__body form .form__divs .div__input{
+    width:100%;
+    height: 200px;
+    /*background-color: pink;*/
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__input .input__text{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #849cf4;
+    font-weight: bold;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__input .input__box{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*background-color: brown;*/
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__input .input__box.work{
+    position: relative;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__input .input__box.work .works__ul{
+    top: 50px;
+    position: absolute;
+    width: 90%;
+    height: 130px;
+    overflow-y: scroll;
+    background-color:#849cf4 ;
+    box-shadow: 0 8px 8px rgba(132,156,244,0.75);
+    text-transform: capitalize;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__input .input__box.work .works__ul li{
+    width: 100%;
+    padding: 4%;
+    align-items: center;
+    cursor: pointer;
+    font-size: 15px;
+    color: whitesmoke;
+    text-transform: capitalize;
+    display: flex;
+    flex-wrap: wrap;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__input .input__box input{
+    width: 80%;
+    height: 30px;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    background-color: whitesmoke;
+    box-shadow: 0 8px 8px rgba(0,0,0,0.17777);
+    border: 1px solid transparent;
+    padding: 0 5%;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__error{
+    width: 100%;
+    height: 40px;
+    /*background-color: red;*/
+    display: flex;
+    color: red;
+    text-align: center;
+    padding: 5%;
+    align-items: center;
+    justify-content: center;
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__next{
+    width: 100%;
+    height: 80px;
+    /*background-color: pink;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.register .register__body .register__form .register__form__body form .form__divs .div__next button{
+    width: 150px;
+    height: 40px;
+    /*background-color:blue;*/
+    display: flex;
+    /*background-color: transparent;*/
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border: none;
+    background-color: #849cf4;
+    /*box-shadow: 0 8px 8px #849cf480;*/
+    color: white;
+    box-shadow: -7px 3px 37px 3px rgba(132,156,244,0.75);
+    -webkit-box-shadow: -7px 3px 37px 3px rgba(132,156,244,0.75);
+    -moz-box-shadow: -7px 3px 37px 3px rgba(132,156,244,0.75);
+    border-radius: 12px;
+    pointer-events: none;
+    cursor: pointer;
+}
+.offline__div{
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.offline__div .reload__btn button{
+    width: 150px;
+    height: 40px;
+    /*background-color:blue;*/
+    display: flex;
+    /*background-color: transparent;*/
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    /*box-shadow: 0 8px 8px #849cf480;*/
+    color: #988d8d;
+    border-radius: 12px;
+    pointer-events: none;
+    cursor: pointer;
+}

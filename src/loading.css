@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.loading{
+    width: 100vw;
+    height: 100vh;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loading .loading__image{
+    width: 300px;
+    height: 300px;
+}
+.loading .loading__image img{
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    animation: load 3s linear infinite;
+}
+@keyframes load {
+    0%{
+        transform: scale(1);
+    }
+    25%{
+        transform: scale(1.5);
+    }
+    50%{
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(1.5);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
