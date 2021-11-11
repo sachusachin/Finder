@@ -11,6 +11,7 @@ import maleimg from './img/maleimg.png';
 import femaleimg from './img/female.png';
 import addressimg from './img/address.png';
 import {worksData,cityNames} from "./Datas";
+import Loding from "./Loding";
 // import haversine from 'haversine-distance';
 // import Loding from "./Loding";
 // import {set} from "firebase/firebase-database";
@@ -29,6 +30,8 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
     const [city,setCity]=useState("");
     const [address,setAddress] = useState("");
     const [gender,setGender] = useState("");
+
+    const [dbload,setDbload] = useState(false);
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [isPageLoaded, setIsPageLoaded] = useState(false); //this helps
@@ -77,6 +80,7 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
         const snapshot = await checkDocs.get();
 
         if (!snapshot.exists){
+            setDbload(true)
             const username = name;
             try{
                 checkDocs.set({
@@ -96,7 +100,8 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
                     setErrormsg("");
                     setNumber("");
                     setGender("");
-                    alert("success");
+                    // alert("success");
+                    console.log("Data stored successfully");
                     localStorage.setItem('olduser',JSON.stringify(true));
                     localStorage.setItem('reg',JSON.stringify(null));
                     olduser=true
@@ -104,7 +109,7 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
                     window.location.reload()
                 })
             }catch (error){
-                console.log(error);
+                console.log("Error database : ",error);
             }
         }else{
             localStorage.setItem('olduser',JSON.stringify(true));
@@ -346,7 +351,6 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
 
     const form6Handler = (e) => {
         e.preventDefault()
-        alert(gender)
         dataInsert()
         // document.querySelector("#registerForm").style.transform="translateX(-1800px)";
     }
@@ -370,264 +374,273 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
     // --------- Final return Statement ------------ //
 
 
-    return (
-        <>
-            <Online>
-                <div className="register">
-                    <div className="register__body">
-                        <div className="register__top">
-                            <div className="back__btn">
-                                <button onClick={logout}>
-                                    <i className="fas fa-angle-left"> </i>
-                                </button>
-                            </div>
-                            <div className="logo__image">
-                                <div className="image">
-                                    <img src={logo} alt="logo"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="register__form">
-                            <div className="register__form__head">
-                                <p>create account</p>
-                            </div>
-                            <div className="register__form__body">
-                                <form id="registerForm">
-                                    <div className="username__form">
-                                        <div className="form__divs">
-                                            <div className="div__image">
-                                                <div className="image">
-                                                    <img src={userimg} alt="user"/>
-                                                </div>
-                                            </div>
-                                            <div className="div__input">
-                                                <div className="input__text">
-                                                    <p>User name</p>
-                                                </div>
-                                                <div className="input__box">
-                                                    <input type="text" onChange={usernameHandler} id="username" value={name} placeholder="Username"/>
-                                                </div>
-                                            </div>
-                                            <div className="div__error">
-                                                <p>{errormsg}</p>
-                                            </div>
-                                            <div className="div__next">
-                                                <button className="form__next__btn" onClick={form1Handler}>Next</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="phonenumber__form">
-                                        <div className="form__divs">
-                                            <div className="div__image">
-                                                <div className="image">
-                                                    <img src={callimg} alt="user"/>
-                                                </div>
-                                            </div>
-                                            <div className="div__input">
-                                                <div className="input__text">
-                                                    <p>Mobile Number</p>
-                                                </div>
-                                                <div className="input__box">
-                                                    <input
-                                                        type="text"
-                                                        onChange={mobilenumberHandler}
-                                                        id="mobilenumber"
-                                                        value={phonenumber}
-                                                        placeholder="10-digit number"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="div__error">
-                                                <p>{errormsg}</p>
-                                            </div>
-                                            <div className="div__next">
-                                                <button className="form2__next__btn" onClick={form2Handler}>Next</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="working__form">
-                                        <div className="form__divs">
-                                            <div className="div__image">
-                                                <div className="image">
-                                                    <img src={working} alt="work"/>
-                                                </div>
-                                            </div>
-                                            <div className="div__input">
-                                                <div className="input__text">
-                                                    <p>Profession </p>
-                                                </div>
-                                                <div className="input__box work">
-                                                    <input
-                                                        type="text"
-                                                        onChange={workHandler}
-                                                        id="work"
-                                                        value={work}
-                                                        placeholder="ex-Cleaner"
-                                                    />
-                                                    {
-                                                        work!=="" &&
-                                                        <ul className="works__ul">{
-                                                            worksData.map((data)=>{
-                                                                if(data.toLocaleLowerCase().trim().includes(work.toLocaleLowerCase().trim())){
-                                                                    return(
-                                                                        <li key={data} onClick={selectHandler}>{data}</li>
-                                                                    )
-                                                                }else if(work===""){
-                                                                    return <></>
-                                                                }
-                                                            })
-                                                        }</ul>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="div__error">
-                                                <p>{errormsg}</p>
-                                            </div>
-                                            <div className="div__next">
-                                                <button className="form3__next__btn" onClick={form3Handler}>Next</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="city__form">
-                                        <div className="form__divs">
-                                            <div className="div__image">
-                                                <div className="image">
-                                                    <img src={cityimg} alt="work"/>
-                                                </div>
-                                            </div>
-                                            <div className="div__input">
-                                                <div className="input__text">
-                                                    <p>City</p>
-                                                </div>
-                                                <div className="input__box work">
-                                                    <input
-                                                        type="text"
-                                                        onChange={cityHandler}
-                                                        id="city"
-                                                        value={city}
-                                                        placeholder="ex-Pollachi"
-                                                    />
-                                                    {
-                                                        city!=="" &&
-                                                        <ul className="works__ul">{
-                                                            cityNames.map((data)=>{
-                                                                if(data.toLocaleLowerCase().trim().includes(city.toLocaleLowerCase().trim())){
-                                                                    return(
-                                                                        <li key={data} onClick={cityselectHandler}>{data}</li>
-                                                                    )
-                                                                }else if(city===""){
-                                                                    return <></>
-                                                                }
-                                                            })
-                                                        }</ul>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="div__error">
-                                                <p>{errormsg}</p>
-                                            </div>
-                                            <div className="div__next">
-                                                <button className="form4__next__btn" onClick={form4Handler}>Next</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="address__form">
-                                        <div className="form__divs">
-                                            <div className="div__image">
-                                                <div className="image">
-                                                    <img src={addressimg} alt="user"/>
-                                                </div>
-                                            </div>
-                                            <div className="div__input">
-                                                <div className="input__text">
-                                                    <p>Address</p>
-                                                </div>
-                                                <div className="input__box">
-                                                    <input
-                                                        type="text"
-                                                        onChange={addressHandler}
-                                                        id="address"
-                                                        value={address}
-                                                        placeholder="Full Address"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="div__error">
-                                                <p>{errormsg}</p>
-                                            </div>
-                                            <div className="div__next">
-                                                <button className="form5__next__btn" onClick={form5Handler}>Next</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="gender__form">
-                                        <div className="form__divs">
-                                            <div className="div__image gender">
-                                                <div className="image">
-                                                    <p>Gender</p>
-                                                </div>
-                                            </div>
-                                            <div className="gender__type__div">
-                                                <div className="type__option" id="male" onClick={genderselectHandler}>
-                                                    <div className="image male__image">
-                                                        <img src={maleimg} alt="male"/>
-                                                    </div>
-                                                </div>
-                                                <div className="type__option" id="female" onClick={genderselectHandler}>
-                                                    <div className="image female__image">
-                                                        <img src={femaleimg} alt="female"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="div__next">
-                                                <button className="form6__next__btn" onClick={form6Handler}>Next</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    {/*<div className="register__form">*/}
-                    {/*    <form>*/}
-                    {/*        <div className="form__divs">*/}
-                    {/*            <div className="input">*/}
-                    {/*                <input type="text" onChange={usernameHandler}/>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="error">*/}
-                    {/*                {name}*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="form__divs">*/}
+    if(dbload===true){
+        return (
+            <>
+                <Loding />
+            </>
+        )
+    }else{
+        return (
+           <>
+               <Online>
+                   <div className="register">
+                       <div className="register__body">
+                           <div className="register__top">
+                               <div className="back__btn">
+                                   <button onClick={logout}>
+                                       <i className="fas fa-angle-left"> </i>
+                                   </button>
+                               </div>
+                               <div className="logo__image">
+                                   <div className="image">
+                                       <img src={logo} alt="logo"/>
+                                   </div>
+                               </div>
+                           </div>
+                           <div className="register__form">
+                               <div className="register__form__head">
+                                   <p>create account</p>
+                               </div>
+                               <div className="register__form__body">
+                                   <form id="registerForm">
+                                       <div className="username__form">
+                                           <div className="form__divs">
+                                               <div className="div__image">
+                                                   <div className="image">
+                                                       <img src={userimg} alt="user"/>
+                                                   </div>
+                                               </div>
+                                               <div className="div__input">
+                                                   <div className="input__text">
+                                                       <p>User name</p>
+                                                   </div>
+                                                   <div className="input__box">
+                                                       <input type="text" onChange={usernameHandler} id="username" value={name} placeholder="Username"/>
+                                                   </div>
+                                               </div>
+                                               <div className="div__error">
+                                                   <p>{errormsg}</p>
+                                               </div>
+                                               <div className="div__next">
+                                                   <button className="form__next__btn" onClick={form1Handler}>Next</button>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div className="phonenumber__form">
+                                           <div className="form__divs">
+                                               <div className="div__image">
+                                                   <div className="image">
+                                                       <img src={callimg} alt="user"/>
+                                                   </div>
+                                               </div>
+                                               <div className="div__input">
+                                                   <div className="input__text">
+                                                       <p>Mobile Number</p>
+                                                   </div>
+                                                   <div className="input__box">
+                                                       <input
+                                                           type="text"
+                                                           onChange={mobilenumberHandler}
+                                                           id="mobilenumber"
+                                                           value={phonenumber}
+                                                           placeholder="10-digit number"
+                                                       />
+                                                   </div>
+                                               </div>
+                                               <div className="div__error">
+                                                   <p>{errormsg}</p>
+                                               </div>
+                                               <div className="div__next">
+                                                   <button className="form2__next__btn" onClick={form2Handler}>Next</button>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div className="working__form">
+                                           <div className="form__divs">
+                                               <div className="div__image">
+                                                   <div className="image">
+                                                       <img src={working} alt="work"/>
+                                                   </div>
+                                               </div>
+                                               <div className="div__input">
+                                                   <div className="input__text">
+                                                       <p>Profession </p>
+                                                   </div>
+                                                   <div className="input__box work">
+                                                       <input
+                                                           type="text"
+                                                           onChange={workHandler}
+                                                           id="work"
+                                                           value={work}
+                                                           placeholder="ex-Cleaner"
+                                                       />
+                                                       {
+                                                           work!=="" &&
+                                                           <ul className="works__ul">{
+                                                               worksData.map((data)=>{
+                                                                   if(data.toLocaleLowerCase().trim().includes(work.toLocaleLowerCase().trim())){
+                                                                       return(
+                                                                           <li key={data} onClick={selectHandler}>{data}</li>
+                                                                       )
+                                                                   }else if(work===""){
+                                                                       return <></>
+                                                                   }
+                                                               })
+                                                           }</ul>
+                                                       }
+                                                   </div>
+                                               </div>
+                                               <div className="div__error">
+                                                   <p>{errormsg}</p>
+                                               </div>
+                                               <div className="div__next">
+                                                   <button className="form3__next__btn" onClick={form3Handler}>Next</button>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div className="city__form">
+                                           <div className="form__divs">
+                                               <div className="div__image">
+                                                   <div className="image">
+                                                       <img src={cityimg} alt="work"/>
+                                                   </div>
+                                               </div>
+                                               <div className="div__input">
+                                                   <div className="input__text">
+                                                       <p>City</p>
+                                                   </div>
+                                                   <div className="input__box work">
+                                                       <input
+                                                           type="text"
+                                                           onChange={cityHandler}
+                                                           id="city"
+                                                           value={city}
+                                                           placeholder="ex-Pollachi"
+                                                       />
+                                                       {
+                                                           city!=="" &&
+                                                           <ul className="works__ul">{
+                                                               cityNames.map((data)=>{
+                                                                   if(data.toLocaleLowerCase().trim().includes(city.toLocaleLowerCase().trim())){
+                                                                       return(
+                                                                           <li key={data} onClick={cityselectHandler}>{data}</li>
+                                                                       )
+                                                                   }else if(city===""){
+                                                                       return <></>
+                                                                   }
+                                                               })
+                                                           }</ul>
+                                                       }
+                                                   </div>
+                                               </div>
+                                               <div className="div__error">
+                                                   <p>{errormsg}</p>
+                                               </div>
+                                               <div className="div__next">
+                                                   <button className="form4__next__btn" onClick={form4Handler}>Next</button>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div className="address__form">
+                                           <div className="form__divs">
+                                               <div className="div__image">
+                                                   <div className="image">
+                                                       <img src={addressimg} alt="user"/>
+                                                   </div>
+                                               </div>
+                                               <div className="div__input">
+                                                   <div className="input__text">
+                                                       <p>Address</p>
+                                                   </div>
+                                                   <div className="input__box">
+                                                       <input
+                                                           type="text"
+                                                           onChange={addressHandler}
+                                                           id="address"
+                                                           value={address}
+                                                           placeholder="Full Address"
+                                                       />
+                                                   </div>
+                                               </div>
+                                               <div className="div__error">
+                                                   <p>{errormsg}</p>
+                                               </div>
+                                               <div className="div__next">
+                                                   <button className="form5__next__btn" onClick={form5Handler}>Next</button>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div className="gender__form">
+                                           <div className="form__divs">
+                                               <div className="div__image gender">
+                                                   <div className="image">
+                                                       <p>Gender</p>
+                                                   </div>
+                                               </div>
+                                               <div className="gender__type__div">
+                                                   <div className="type__option" id="male" onClick={genderselectHandler}>
+                                                       <div className="image male__image">
+                                                           <img src={maleimg} alt="male"/>
+                                                       </div>
+                                                   </div>
+                                                   <div className="type__option" id="female" onClick={genderselectHandler}>
+                                                       <div className="image female__image">
+                                                           <img src={femaleimg} alt="female"/>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                               <div className="div__next">
+                                                   <button className="form6__next__btn" onClick={form6Handler}>Next</button>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </form>
+                               </div>
+                           </div>
+                       </div>
+                       {/*<div className="register__form">*/}
+                       {/*    <form>*/}
+                       {/*        <div className="form__divs">*/}
+                       {/*            <div className="input">*/}
+                       {/*                <input type="text" onChange={usernameHandler}/>*/}
+                       {/*            </div>*/}
+                       {/*            <div className="error">*/}
+                       {/*                {name}*/}
+                       {/*            </div>*/}
+                       {/*        </div>*/}
+                       {/*        <div className="form__divs">*/}
 
-                    {/*        </div>*/}
-                    {/*        <div className="form__divs">*/}
+                       {/*        </div>*/}
+                       {/*        <div className="form__divs">*/}
 
-                    {/*        </div>*/}
-                    {/*    </form>*/}
-                    {/*</div>*/}
-                    {/*<p>new register</p>*/}
-                    {/*<p>{olduser}</p>*/}
-                    {/*<form onSubmit={dataInsert}>*/}
-                    {/*    <input*/}
-                    {/*        type="text"*/}
-                    {/*        value={name}*/}
-                    {/*        onChange={(e)=>setName(e.target.value)}*/}
-                    {/*    />*/}
-                    {/*    <button type="submit">onclick</button>*/}
-                    {/*</form>*/}
-                    {/*<button onClick={logout}>logout</button>*/}
-                </div>
-            </Online>
-            <Offline>
-                <div className="offline__div">
-                    <div className="reload__btn">
-                        <button onClick={()=>window.history.reload()}>Retry</button>
-                    </div>
-                </div>
-            </Offline>
-        </>
-    )
+                       {/*        </div>*/}
+                       {/*    </form>*/}
+                       {/*</div>*/}
+                       {/*<p>new register</p>*/}
+                       {/*<p>{olduser}</p>*/}
+                       {/*<form onSubmit={dataInsert}>*/}
+                       {/*    <input*/}
+                       {/*        type="text"*/}
+                       {/*        value={name}*/}
+                       {/*        onChange={(e)=>setName(e.target.value)}*/}
+                       {/*    />*/}
+                       {/*    <button type="submit">onclick</button>*/}
+                       {/*</form>*/}
+                       {/*<button onClick={logout}>logout</button>*/}
+                   </div>
+               </Online>
+               <Offline>
+                   <div className="offline__div">
+                       <div className="reload__btn">
+                           <button onClick={()=>window.history.reload()}>Retry</button>
+                       </div>
+                   </div>
+               </Offline>
+           </>
+        )
+    }
+
 
 }
 
