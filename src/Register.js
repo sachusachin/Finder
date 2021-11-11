@@ -20,6 +20,7 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
     const [reguser,setRegUser]=useState(null);
     const [errormsg,setErrormsg]=useState("");
 
+
     // const userId = userDetails.uid
     const [name,setName] = useState("");
     const [usernames,setUsernames]=useState([]);
@@ -35,6 +36,7 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
     useEffect(() => {
         setIsLoaded(true);
     }, []);
+
 
     useEffect(() => {
         if (isLoaded) {
