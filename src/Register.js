@@ -11,9 +11,9 @@ import maleimg from './img/maleimg.png';
 import femaleimg from './img/female.png';
 import addressimg from './img/address.png';
 import {worksData,cityNames} from "./Datas";
-import haversine from 'haversine-distance';
-import Loding from "./Loding";
-import {set} from "firebase/firebase-database";
+// import haversine from 'haversine-distance';
+// import Loding from "./Loding";
+// import {set} from "firebase/firebase-database";
 
 const Register = ({logout,userDetails,userstate,olduser}) => {
 
