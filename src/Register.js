@@ -265,24 +265,24 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
     }
 
 
-    const getLocation = (e)=> {
-        e.preventDefault()
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(success,error);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-
-    const success = (position)=>{
-        console.log(position)
-        console.log(position.coords.latitude)
-        console.log(position.coords.longitude)
-    }
-
-    const error = (position)=>{
-        console.log("oops")
-    }
+    // const getLocation = (e)=> {
+    //     e.preventDefault()
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(success,error);
+    //     } else {
+    //         alert("Geolocation is not supported by this browser.");
+    //     }
+    // }
+    //
+    // const success = (position)=>{
+    //     console.log(position)
+    //     console.log(position.coords.latitude)
+    //     console.log(position.coords.longitude)
+    // }
+    //
+    // const error = (position)=>{
+    //     console.log("oops")
+    // }
 
 
     // -----------------   Selection handle functions start  ------------- //
@@ -403,7 +403,7 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
                                    <p>create account</p>
                                </div>
                                <div className="register__form__body">
-                                   <form id="registerForm">
+                                   <form id="registerForm" autoComplete="off">
                                        <div className="username__form">
                                            <div className="form__divs">
                                                <div className="div__image">
