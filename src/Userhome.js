@@ -12,6 +12,7 @@ const Userhome = ({userDetails,logout}) => {
 
     const [userDb,setUserDb]=useState("");
     const [profileurl,setProfileurl] = useState("");
+    const [useravailable,setUseravailable] = useState(true);
 
 
     //To get user Detail from the firestore
@@ -24,11 +25,16 @@ const Userhome = ({userDetails,logout}) => {
                 const data = doc.data(); // Current User data from firebase ...
                 setUserDb(data);
             });
-        setProfileurl(userDetails.photoURL+"?access_token="+userDetails.stsTokenManager.accessToken)
+        setProfileurl(userDetails.photoURL+"?access_token="+userDetails?.stsTokenManager?.accessToken)
     },[])
 
     console.log("user docs : ",userDb)
     console.log("user : ",userDetails.uid)
+
+
+    const userAvailableHandler = () => {
+      setUseravailable(!useravailable)
+    }
 
 
 
@@ -41,18 +47,20 @@ const Userhome = ({userDetails,logout}) => {
              <div className="userhome">
                  <div className="userhome__body">
                      <div className="userhome__top">
-                         <div className="userhome__top__head">
-                             <div className="left">
-                                 <div className="user__image">
-                                     <img src={profileurl} alt="userimage"/>
-                                 </div>
-                                 <div className="user__name">
-                                     <p>{userDb.name}</p>
-                                 </div>
+                         <div className="top__head">
+                             <button className="menu"><i className="fal fa-cog"> </i> </button>
+                             <button className="notification"><i className="fal fa-bell"> </i> <span></span> </button>
+                         </div>
+                         <div className="center__image">
+                             <div className="image">
+                                 <img src={ profileurl } alt="profile" />
                              </div>
-                             <div className="right">
+                             <div className="user__name">
+                                 <p>{userDb.name}</p>
+                             </div>
+                         </div>
+                         <div className="userhome__details">
 
-                             </div>
                          </div>
                      </div>
                      <div className="summa">
