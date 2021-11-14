@@ -129,30 +129,35 @@ const NormalHome = ({userDetails}) => {
         }
     }
 
+    // const availableHandler = async ()=> {
+    //
+    //     const checkDocs = db.doc(`users/${userDetails.uid}`);
+    //
+    //     const snapshot = await checkDocs.get();
+    //
+    //     if (snapshot.exists){
+    //         try{
+    //             checkDocs.update({
+    //                 availability:"available"
+    //                 }
+    //             ).then(()=>{
+    //                 // alert("success");
+    //                 document.querySelector(".btns.available__btn").classList.add("active")
+    //                 document.querySelector(".btns.unavailable__btn").classList.remove("active")
+    //                 console.log("user available stored");
+    //             })
+    //         }catch (error){
+    //             console.log("Error database : ",error);
+    //         }
+    //     }
+    // }
+
     const availableHandler = async ()=> {
-
-        const checkDocs = db.doc(`users/${userDetails.uid}`);
-
-        const snapshot = await checkDocs.get();
-
-        if (snapshot.exists){
-            try{
-                checkDocs.update({
-                    availability:"available"
-                    }
-                ).then(()=>{
-                    // alert("success");
-                    document.querySelector(".btns.available__btn").classList.add("active")
-                    document.querySelector(".btns.unavailable__btn").classList.remove("active")
-                    console.log("user available stored");
-                })
-            }catch (error){
-                console.log("Error database : ",error);
-            }
+        if(userDb.availability==="unavailable"){
+            var av = "available"
+        }else if(userDb.availability==="available"){
+            av = "unavailable"
         }
-    }
-
-    const unavailableHandler = async ()=> {
         const checkDocs = db.doc(`users/${userDetails.uid}`);
 
         const snapshot = await checkDocs.get();
@@ -160,12 +165,11 @@ const NormalHome = ({userDetails}) => {
         if (snapshot.exists){
             try{
                 checkDocs.update({
-                        availability:"unavailable"
+                        availability:av
                     }
                 ).then(()=>{
-                    // alert("success");
-                    document.querySelector(".btns.available__btn").classList.remove("active")
-                    document.querySelector(".btns.unavailable__btn").classList.add("active")
+                    // document.querySelector(".btns.available__btn").classList.remove("active")
+                    // document.querySelector(".btns.unavailable__btn").classList.add("active")
                     console.log("user unavailable stored");
                 })
             }catch (error){
@@ -183,23 +187,15 @@ const NormalHome = ({userDetails}) => {
                             <div className="text">
                                 <p>Status</p>
                             </div>
-                            <div className="button__div">
-                                <div
-                                    className={
-                                        userDb.availability === "available" &&
-                                            "btns available__btn active" ||
-                                            "btns available__btn"
-                                    }
-                                    onClick={availableHandler}
-                                >
-                                    <p>Available</p>
+                            <div className="box">
+                                <div className="box__text">
+                                    <p>{userDb.availability}</p>
                                 </div>
-                                <div className={
-                                    userDb.availability === "unavailable" &&
-                                    "btns unavailable__btn active" ||
-                                    "btns unavailable__btn"
-                                } onClick={unavailableHandler}>
-                                    <p>Un Available</p>
+                                <div className="box__btn">
+                                    <label className="switch">
+                                        <input type="checkbox" onClick={availableHandler} checked={userDb.availability==="available"&&"checked"} />
+                                        <span className="slider"> </span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -256,3 +252,25 @@ const NormalHome = ({userDetails}) => {
 }
 
 export default NormalHome;
+
+
+
+// <div className="button__div">
+//     <div
+//         className={
+//             userDb.availability === "available" &&
+//             "btns available__btn active" ||
+//             "btns available__btn"
+//         }
+//         onClick={availableHandler}
+//     >
+//         <p>Available</p>
+//     </div>
+//     <div className={
+//         userDb.availability === "unavailable" &&
+//         "btns unavailable__btn active" ||
+//         "btns unavailable__btn"
+//     } onClick={unavailableHandler}>
+//         <p>Un Available</p>
+{/*    </div>*/}
+{/*</div>*/}
