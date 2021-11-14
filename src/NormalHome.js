@@ -120,8 +120,53 @@ const NormalHome = ({userDetails}) => {
                         phonenumber:phnumber
                     }
                 ).then(()=>{
-                    alert("success");
+                    // alert("success");
                     console.log("Data stored successfully");
+                })
+            }catch (error){
+                console.log("Error database : ",error);
+            }
+        }
+    }
+
+    const availableHandler = async ()=> {
+
+        const checkDocs = db.doc(`users/${userDetails.uid}`);
+
+        const snapshot = await checkDocs.get();
+
+        if (snapshot.exists){
+            try{
+                checkDocs.update({
+                    availability:"available"
+                    }
+                ).then(()=>{
+                    // alert("success");
+                    document.querySelector(".btns.available__btn").classList.add("active")
+                    document.querySelector(".btns.unavailable__btn").classList.remove("active")
+                    console.log("user available stored");
+                })
+            }catch (error){
+                console.log("Error database : ",error);
+            }
+        }
+    }
+
+    const unavailableHandler = async ()=> {
+        const checkDocs = db.doc(`users/${userDetails.uid}`);
+
+        const snapshot = await checkDocs.get();
+
+        if (snapshot.exists){
+            try{
+                checkDocs.update({
+                        availability:"unavailable"
+                    }
+                ).then(()=>{
+                    // alert("success");
+                    document.querySelector(".btns.available__btn").classList.remove("active")
+                    document.querySelector(".btns.unavailable__btn").classList.add("active")
+                    console.log("user unavailable stored");
                 })
             }catch (error){
                 console.log("Error database : ",error);
@@ -133,7 +178,32 @@ const NormalHome = ({userDetails}) => {
         return (
             <>
                 <div className="normalhome">
-                    verified
+                    <div className="availability__div">
+                        <div className="availability__div__body">
+                            <div className="text">
+                                <p>Status</p>
+                            </div>
+                            <div className="button__div">
+                                <div
+                                    className={
+                                        userDb.availability === "available" &&
+                                            "btns available__btn active" ||
+                                            "btns available__btn"
+                                    }
+                                    onClick={availableHandler}
+                                >
+                                    <p>Available</p>
+                                </div>
+                                <div className={
+                                    userDb.availability === "unavailable" &&
+                                    "btns unavailable__btn active" ||
+                                    "btns unavailable__btn"
+                                } onClick={unavailableHandler}>
+                                    <p>Un Available</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </>
         )
