@@ -3,10 +3,7 @@ import React, {useEffect} from "react"
 // import logo from "./img/logo.png";
 import './topnav.css'
 
-
-
-
-const Settings = ({userDetails}) => {
+const Settings = ({userDetails,logout}) => {
 
     useEffect(()=>{
         window.scroll(0,0)
@@ -16,6 +13,7 @@ const Settings = ({userDetails}) => {
     return (
         <>
             Settings
+            <button onClick={logout}>logout</button>
         </>
     )
 }

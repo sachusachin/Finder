@@ -1,0 +1,146 @@
+.normalhome.not__verified{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.normalhome.not__verified .not__verified__div__center{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.normalhome.not__verified .not__verified__div{
+    margin-top: 30px;
+    width: 90%;
+    height: 100%;
+    max-height: 60px;
+    background-color: white;
+    box-shadow: 0 20px 20px rgba(0,0,0,0.1788888);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.normalhome.not__verified .not__verified__div p{
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 15px;
+    word-spacing: 1px;
+    letter-spacing: 1px;
+    color: #7b869a;
+}
+.normalhome.not__verified .not__verified__div p button{
+    text-transform: capitalize;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--blue);
+    cursor: pointer;
+}
+.verification__div{
+    display: none;
+}
+
+.verification__div.active{
+    width: 100%;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.verification__div.active .verification__form{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.verification__div.active .verification__form form{
+    width:300px;
+    height: 300px;
+    background-color: white;
+    box-shadow: 0 20px 20px rgba(0,0,0,0.178888);
+}
+.verification__div.active .verification__form form .number,
+.verification__div.active .verification__form form .verify__code{
+    width:100%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.verification__div.active .verification__form form .number input,
+.verification__div.active .verification__form form .verify__code input{
+    width:80%;
+    height: 30px;
+    outline: none;
+    border: 1px solid transparent;
+    background-color: #f1efef;
+    padding: 0 5%;
+    border-radius: 30px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.178888);
+}
+.verification__div.active .verification__form form .captcha__div{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.verification__div.active .verification__form form .captcha__div{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.verification__div.active .verification__form form .send__otp__btn,
+.verification__div.active .verification__form form .verify__otp__btn{
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.verification__div.active .verification__form form .send__otp__btn button,
+.verification__div.active .verification__form form .verify__otp__btn button{
+    width: 120px;
+    height: 30px;
+    outline: none;
+    border:none;
+    border-radius: 30px;
+    align-items: center;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.1788);
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+    cursor: pointer;
+    background-color: var(--blue);
+    justify-content: center;
+    display: flex;
+    pointer-events: none;
+}
+.verification__div.active .verification__form form .error{
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    font-size: 17px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    color: rgba(208, 61, 61, 0.68);
+    justify-content: center;
+    display: flex;
+}
+
+.form2,
+.form1{
+    display: unset;
+}
+
+.form1.active,
+.form2.active{
+    display: none;
+}

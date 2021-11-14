@@ -90,7 +90,7 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
                         address:address,
                         phonenumber:phonenumber,
                         work:work,
-                        verified:false,
+                        verified:"false",
                         emailid:userDetails.email
                     }
                 ).then(()=>{

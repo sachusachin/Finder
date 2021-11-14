@@ -12,9 +12,7 @@ const Notification = ({profileurl}) => {
     },[])
 
     return (
-        <div className="no__notification">
-
-        </div>
+        <div className="no__notification"> </div>
 
     )
 }

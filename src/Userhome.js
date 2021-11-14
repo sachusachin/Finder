@@ -13,6 +13,7 @@ import Notification from "./Notification";
 import Settings from "./Settings";
 import NormalHome from "./NormalHome";
 import {doc, getDoc} from "@firebase/firestore";
+import Protected from "./Protected";
 // import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 
@@ -56,22 +57,12 @@ const Userhome =  ({userDetails, logout}) => {
                 <div className="userhome">
                     <Topnav profileurl={profileurl}/>
                     <div className="userhome__body">
-                        {/*<div className="summa">*/}
-                        {/*    <p>{userDb.name}</p>*/}
-                        {/*    <p>{userDb.emailid}</p>*/}
-                        {/*    <p>{userDb.phonenumber}</p>*/}
-                        {/*    <p>{userDb.work}</p>*/}
-                        {/*    <p>{userDb.city}</p>*/}
-                        {/*    <p>{userDb.address}</p>*/}
-                        {/*    <p>{userDb.gender}</p>*/}
-                        {/*    <p>{userDb.verified}</p>*/}
-                        {/*    <button onClick={logout}>Logout</button>*/}
-                        {/*</div>*/}
                         <Routes>
                             <Route path="/" exact element={<NormalHome userDetails={userDetails}/>}/>
                             <Route path="/notification" element={<Notification userDetails={userDb}/>}/>
                             <Route path="/history" element={<BookingHistory userDetails={userDb}/>}/>
-                            <Route path="/settings" element={<Settings userDetails={userDb}/>}/>
+                            {/*<Route path="/settings" element={<Settings userDetails={userDb} logout={logout}/>}/>*/}
+                            <Route path="/settings" element={<Protected Cmp={Settings} userDetails={userDb} logout={logout} /> } />
                         </Routes>
                     </div>
                     <Navbar/>

@@ -1,9 +1,10 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import "./signin.css"
 import bg from './img/home.jpg';
 import logo from './img/logo.png';
 import worker from './img/worker.png';
 import user from './img/find.jpg';
+import {useNavigate} from "react-router-dom";
 
 const Signin = ({googleLogin}) => {
 
@@ -31,6 +32,16 @@ const Signin = ({googleLogin}) => {
         document.querySelector(".type__worker").classList.add("active")
         document.querySelector(".type__user").classList.remove("active")
     }
+
+    // const navigate = useNavigate();
+
+    //
+    // useEffect(()=>{
+    //     if (localStorage.getItem("user")==="false"){
+    //         navigate('/')
+    //     }
+    // },[])
+
     return (
         <div className="welcome__page">
            <div className="center">
