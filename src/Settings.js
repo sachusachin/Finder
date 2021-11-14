@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 // import {Link} from "react-router-dom";
 // import logo from "./img/logo.png";
 import './topnav.css'
@@ -6,7 +6,12 @@ import './topnav.css'
 
 
 
-const Settings = ({profileurl}) => {
+const Settings = ({userDetails}) => {
+
+    useEffect(()=>{
+        window.scroll(0,0)
+    },[])
+
 
     return (
         <>

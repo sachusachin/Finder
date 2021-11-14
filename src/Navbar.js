@@ -26,7 +26,7 @@ const Navbar = ({googleLogin}) => {
                     <div className="option notification">
                         <NavLink  to="/notification">
                             <div className="icon">
-                                <i className="fal fa-bell"> </i>
+                                <i className="fal fa-bell"> <span> </span> </i>
                             </div>
                             <div className="text">
                                 notification

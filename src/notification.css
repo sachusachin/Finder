@@ -1,0 +1,17 @@
+.no__notification{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-image: url("img/notification.png");
+    background-position: center center;
+    background-size: contain;
+    background-color: whitesmoke;
+    background-repeat: no-repeat;
+    font-size: 25px;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    color: var(--blue);
+    font-weight: bold;
+}

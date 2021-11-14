@@ -51,10 +51,24 @@
     color: #8a96ae;
     border: 2px solid transparent;
     font-weight: bold;
+    position: relative;
+}
+.navbar .navbar__center .option a .icon i span.active{
+    position: absolute;
+    display: unset;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 0, 0, 0.85);
+    top: 12%;
+    right: 24%;
+    border-radius: 50%;
 }
 .navbar .navbar__center .option .active .icon i{
     border: 2px solid var(--blue);
     color: var(--blue);
+}
+.navbar .navbar__center .option .active .icon i span{
+    display: none;
 }
 .navbar .navbar__center .option a .text{
     width: 100%;
