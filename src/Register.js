@@ -91,7 +91,8 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
                         phonenumber:phonenumber,
                         work:work,
                         verified:"false",
-                        emailid:userDetails.email
+                        emailid:userDetails.email,
+                        availability:"available"
                     }
                 ).then(()=>{
                     setName("");

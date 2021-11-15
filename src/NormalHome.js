@@ -6,6 +6,7 @@ import {auth, db} from "./firebase";
 import firebase from "firebase/compat";
 
 
+
 const NormalHome = ({userDetails}) => {
 
     const [userDb, setUserDb] = useState([]);
@@ -163,13 +164,12 @@ const NormalHome = ({userDetails}) => {
         const snapshot = await checkDocs.get();
 
         if (snapshot.exists){
+
             try{
                 checkDocs.update({
                         availability:av
                     }
                 ).then(()=>{
-                    // document.querySelector(".btns.available__btn").classList.remove("active")
-                    // document.querySelector(".btns.unavailable__btn").classList.add("active")
                     console.log("user unavailable stored");
                 })
             }catch (error){
