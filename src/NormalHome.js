@@ -221,7 +221,7 @@ const NormalHome = ({userDetails}) => {
                     <div className="schedule__div">
                         <div className="schedule__body">
                             <div className="schedule__head">
-                                <p>Pick Available Dates</p>
+                                <p>Available Dates</p>
                             </div>
                             <div className="schedule__input">
                                 <DatePicker
@@ -243,6 +243,9 @@ const NormalHome = ({userDetails}) => {
                                     minDate={today}
                                     format="DD-MM-YYYY"
                                 />
+                            </div>
+                            <div className="schedule__button">
+                                <button>Update</button>
                             </div>
                         </div>
                     </div>
