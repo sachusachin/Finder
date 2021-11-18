@@ -6,12 +6,14 @@ import './App.css';
 import {auth, googlelogin,db} from "./firebase";
 import Home from "./Home";
 import Signin from "./Signin";
+import { useNavigate } from 'react-router';
 
 function App() {
     const [user,setUser] = useState(false);
     const [olduser,setOlduser]=useState(false);
     // const[localUser,setLocalUser] = useState(false);
     const [userstate,setUserstate] = useState("loading");
+
 
     useEffect(()=>{
         const user = localStorage.getItem('user');
@@ -40,14 +42,17 @@ function App() {
 
     // Logout function
 
+    // const navigate = useNavigate();
+
     const logout = async ()=>{
         try {
             await auth.signOut();
+
             setUser(false);
             setOlduser(false);
             console.log('e');
             localStorage.clear();
-
+            window.location.pathname="/"
         } catch (e){
             console.log("error",e);
         }

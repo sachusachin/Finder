@@ -2,9 +2,15 @@ import React, {useEffect, useState} from "react"
 // import {Link} from "react-router-dom";
 // import logo from "./img/logo.png";
 import './normalhome.css'
+import DatePicker from "react-multi-date-picker"
 import {auth, db} from "./firebase";
 import firebase from "firebase/compat";
+import transition from "react-element-popper/animations/transition"
+import "react-multi-date-picker/styles/layouts/mobile.css"
+import "react-multi-date-picker/styles/colors/purple.css"
+import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 
+// import {useNavigate} from "react-router-dom";
 
 
 const NormalHome = ({userDetails}) => {
@@ -15,7 +21,13 @@ const NormalHome = ({userDetails}) => {
     const [coderesult,setCoderesult] = useState("")
     const [verificationcode,setVerificationcode] = useState("")
 
+    const today = new Date()
 
+    // today.setDate(today.getDate() + 1)
+
+    const [values, setValues] = useState([today])
+
+ // ------------------ Otp phone number and otp input validator ----------------------------------------- //
 
     const numberHandler = (event)=>{
         const numbervalue = event.target.value.trim()
@@ -46,6 +58,9 @@ const NormalHome = ({userDetails}) => {
         }
     }
 
+
+
+ // --------------------------- Code verification ----------------------------------------- //
 
 
      useEffect(()=>{
@@ -87,6 +102,7 @@ const NormalHome = ({userDetails}) => {
         }
 
 
+ // ------------------ Getting current user data ----------------------------------------- //
 
 
     useEffect(() => {
@@ -153,6 +169,8 @@ const NormalHome = ({userDetails}) => {
     //     }
     // }
 
+ //--------------------   Check if the user is available or not   ----------------------- //
+
     const availableHandler = async ()=> {
         if(userDb.availability==="unavailable"){
             var av = "available"
@@ -178,7 +196,7 @@ const NormalHome = ({userDetails}) => {
         }
     }
 
-    if (userDb.verified === "true") {
+    if (userDb?.verified === "true") {
         return (
             <>
                 <div className="normalhome">
@@ -189,7 +207,7 @@ const NormalHome = ({userDetails}) => {
                             </div>
                             <div className="box">
                                 <div className="box__text">
-                                    <p>{userDb.availability}</p>
+                                    <p>{userDb?.availability}</p>
                                 </div>
                                 <div className="box__btn">
                                     <label className="switch">
@@ -197,6 +215,34 @@ const NormalHome = ({userDetails}) => {
                                         <span className="slider"> </span>
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="schedule__div">
+                        <div className="schedule__body">
+                            <div className="schedule__head">
+                                <p>Pick Available Dates</p>
+                            </div>
+                            <div className="schedule__input">
+                                <DatePicker
+                                    animations={[
+                                        transition({
+                                            from: 35,
+                                            transition: "all 400ms cubic-bezier(0.335, 0.010, 0.030, 1.360)",
+                                        }),
+                                    ]}
+                                    className="rmdp-mobile bg-dark"
+                                    inputClass="custom-input"
+                                    mobileLabels={{
+                                        OK: "Accept",
+                                        CANCEL: "Close",
+                                    }}
+                                    multiple
+                                    value={values}
+                                    onChange={setValues}
+                                    minDate={today}
+                                    format="DD-MM-YYYY"
+                                />
                             </div>
                         </div>
                     </div>
