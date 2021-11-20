@@ -220,9 +220,11 @@ const NormalHome = ({userDetails}) => {
                     </div>
                     <div className="schedule__div">
                         <div className="schedule__body">
+
                             <div className="schedule__head">
                                 <p>Available Dates</p>
                             </div>
+
                             <div className="schedule__input">
                                 <DatePicker
                                     animations={[
