@@ -276,20 +276,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 5%;
 }
-.custom-input {
-    border-radius: 15px;
-    border: 1px #8a96ae solid;
-    padding: 4px 12px;
+.custom-input{
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.1778888);
+    padding: 4px 33px;
     background-color: white;
-    height: 22px;
+    height: 100%;
     box-shadow: 0 2px 2px rgba(0,0,0,0.17888);
 }
-
 .custom-input:focus {
     outline: none;
     border: 1px solid #0c8af8;
     box-shadow: 0 0 10px 2px #8a96ae;
+}
+.rmdp-container{
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rmdp-container::before{
+    position: absolute;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    /* top: 5px; */
+    height: 100%;
+    width: 35px;
+    font-size: 15px;
+    content: "\f073";
+    display: flex;
+    color: #8a96ae;
+    font-family: "Font Awesome 5 pro";
 }
 .normalhome .schedule__div .schedule__button{
     width: 100%;
