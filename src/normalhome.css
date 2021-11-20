@@ -281,10 +281,11 @@
 .custom-input{
     border-radius: 5px;
     border: 1px solid rgba(0,0,0,0.1778888);
-    padding: 4px 33px;
+    padding: 4px 0 4px 30px;
     background-color: white;
     height: 100%;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.17888);
+    max-width: 250px;
+    box-shadow: 0 2px 2px rgb(0 0 0 / 18%);
 }
 .custom-input:focus {
     outline: none;
