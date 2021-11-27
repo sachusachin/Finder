@@ -33,6 +33,12 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
 
     const [dbload,setDbload] = useState(false);
 
+    const today = new Date()
+
+    // today.setDate(today.getDate() + 1)
+
+    const [dates, setDates] = useState([today])
+
     const [isLoaded, setIsLoaded] = useState(false);
     const [isPageLoaded, setIsPageLoaded] = useState(false); //this helps
 
@@ -92,7 +98,8 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
                         work:work,
                         verified:"false",
                         emailid:userDetails.email,
-                        availability:"available"
+                        availability:"available",
+                        dates:dates
                     }
                 ).then(()=>{
                     setName("");

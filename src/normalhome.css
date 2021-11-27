@@ -249,6 +249,38 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+.normalhome .schedule__div .schedule__input__info{
+    display: none;
+}
+.normalhome .schedule__div .schedule__input__info.active{
+    position: absolute;
+    top: 0;
+    font-size: 16px;
+    min-width: 120px;
+    width: 33%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    box-shadow: 0 20px 20px rgba(0,0,0,0.17888);
+    background-color: white;
+    transform: translateY(-100%);
+    /*animation: dateani1 .3s linear normal;*/
+    opacity: 0;
+    user-select: none;
+}
+@keyframes dateani1 {
+    0%{
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+    }
 }
 .normalhome .schedule__div .schedule__body{
     width: 80%;
@@ -279,13 +311,15 @@
     padding: 0 5%;
 }
 .custom-input{
-    border-radius: 5px;
+    border-radius: 50%;
     border: 1px solid rgba(0,0,0,0.1778888);
-    padding: 4px 0 4px 30px;
-    background-color: white;
-    height: 100%;
-    max-width: 250px;
-    box-shadow: 0 2px 2px rgb(0 0 0 / 18%);
+    padding: 4px 19px 4px 30px;
+    background-color: rgba(132,156,244,0.75);
+    height: 50px;
+    width: 50px;
+    box-shadow: -7px 3px 30px 3px rgba(132,156,244,0.75);
+    -webkit-box-shadow: -7px 3px 30px 3px rgba(132,156,244,0.75);
+    -moz-box-shadow: -7px 3px 30px 3px rgba(132,156,244,0.75);
 }
 .custom-input:focus {
     outline: none;
@@ -307,11 +341,13 @@
     /* top: 5px; */
     height: 100%;
     width: 35px;
-    font-size: 15px;
+    padding-left: 8px;
+    font-size: 30px;
     content: "\f073";
     display: flex;
-    color: #8a96ae;
+    color: white;
     font-family: "Font Awesome 5 pro";
+    pointer-events: none;
 }
 .normalhome .schedule__div .schedule__button{
     width: 100%;
@@ -339,6 +375,55 @@
 .normalhome .schedule__div .schedule__button button:hover{
     transform: scale(.97);
     box-shadow:inset 0 6px 6px rgba(0,0,0,0.1788888);
+}
+
+.normalhome .dates__div{
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.normalhome .dates__div .dates__div__body{
+    width: 80%;
+    background-color: white;
+    height: 100%;
+    min-height: 200px;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.178888),0 -2px 5px rgba(0,0,0,0.178888);
+}
+.normalhome .dates__div .dates__div__body .head{
+    width: 100%;
+    height: 50px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: 17px;
+    font-weight: bold;
+    color: #8a96ae;
+    letter-spacing: 1px;
+}
+.normalhome .dates__div .dates__div__body .dates{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 5px;
+}
+.normalhome .dates__div .dates__div__body .dates p{
+    height: 30px;
+    width: 120px;
+    margin: 10px;
+    background-color:  var(--blue);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.178888);
+    color: white;
 }
 
 

@@ -25,7 +25,8 @@ const NormalHome = ({userDetails}) => {
 
     // today.setDate(today.getDate() + 1)
 
-    const [values, setValues] = useState([today])
+    const [dates, setDates] = useState([today])
+    const [dbdates, setDbDates] = useState([])
 
  // ------------------ Otp phone number and otp input validator ----------------------------------------- //
 
@@ -168,7 +169,6 @@ const NormalHome = ({userDetails}) => {
     //         }
     //     }
     // }
-
  //--------------------   Check if the user is available or not   ----------------------- //
 
     const availableHandler = async ()=> {
@@ -196,6 +196,56 @@ const NormalHome = ({userDetails}) => {
         }
     }
 
+    // ----------------------- Date update Handler ------------------ //
+
+    const dateHandler = async ()=> {
+
+        const date =  document.querySelector(".custom-input").value.split(",");
+
+
+        if (date.length > 7 || userDb.dates.length > 7){
+            dateMessage("7 days only acceptable","red");
+            setTimeout(()=> document.querySelector(".schedule__input__info.active").style.animation="",4000)
+
+        }else{
+            const checkDocs = db.doc(`users/${userDetails.uid}`);
+
+            const snapshot = await checkDocs.get();
+
+            if (snapshot.exists){
+
+                try{
+                    checkDocs.update({
+                            dates:document.querySelector(".custom-input").value.split(",")
+                        }
+                    ).then(()=>{
+                        dateMessage("UPDATED","green");
+                        setTimeout(()=> document.querySelector(".schedule__input__info.active").style.animation="",4000)
+                        console.log("user dates stored : ",userDb.dates);
+                    })
+                }catch (error){
+                    console.log("Error database : ",error);
+                    console.log(userDb.dates)
+                }
+            }
+        }
+    }
+
+    const dateMessage =(message,color)=>{
+        document.querySelector(".schedule__input__info.active").style.animation="dateani1 .3s linear forwards";
+        document.querySelector(".schedule__input__info.active").style.color=color;
+        document.querySelector(".schedule__input__info.active").innerText=message
+    }
+
+    const datesetHandler = (event) => {
+        setDbDates(document.querySelector(".custom-input").value.split(","))
+      // const date = document.querySelector(".custom-input").value.split(",")
+      //   console.log("da :",date)
+      //   setDbDates(date)
+      //   console.log(dbdates)
+    }
+
+ console.log("dates : ",dates)
     if (userDb?.verified === "true") {
         return (
             <>
@@ -222,10 +272,11 @@ const NormalHome = ({userDetails}) => {
                         <div className="schedule__body">
 
                             <div className="schedule__head">
-                                <p>Available Dates</p>
+                                <p>Choose Dates</p>
                             </div>
 
                             <div className="schedule__input">
+                                <p className="schedule__input__info active"> </p>
                                 <DatePicker
                                     animations={[
                                         transition({
@@ -240,14 +291,30 @@ const NormalHome = ({userDetails}) => {
                                         CANCEL: "Close",
                                     }}
                                     multiple
-                                    value={values}
-                                    onChange={setValues}
+                                    value={dates}
+                                    onChange={datesetHandler}
                                     minDate={today}
                                     format="DD-MM-YYYY"
                                 />
                             </div>
                             <div className="schedule__button">
-                                <button>Update</button>
+                                <button onClick={dateHandler}>Update</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="dates__div">
+                        <div className="dates__div__body">
+                            <div className="head">
+                                <p>Available Dates</p>
+                            </div>
+                            <div className="dates">
+                                {
+                                    userDb.dates.map((date)=>{
+                                        return <p>
+                                            {date}
+                                        </p>
+                                    })
+                                }
                             </div>
                         </div>
                     </div>
