@@ -13,12 +13,9 @@ const Navbar = ({googleLogin}) => {
             <div className="navbar">
                 <div className="navbar__center">
                     <div className="option history">
-                        <NavLink to="/history" >
+                        <NavLink to="/" >
                             <div className="icon">
-                                <i className="fal fa-history"> </i>
-                            </div>
-                            <div className="text">
-                                History
+                                <i className="fal fa-home-alt"> </i>
                             </div>
                         </NavLink>
                     </div>

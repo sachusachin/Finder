@@ -60,7 +60,7 @@ const Userhome =  ({userDetails, logout}) => {
                         <Routes>
                             <Route path="/" exact element={<NormalHome userDetails={userDetails}/>}/>
                             <Route path="/notification" element={<Notification userDetails={userDb}/>}/>
-                            <Route path="/history" element={<BookingHistory userDetails={userDb}/>}/>
+                            {/*<Route path="/history" element={<BookingHistory userDetails={userDb}/>}/>*/}
                             {/*<Route path="/settings" element={<Settings userDetails={userDb} logout={logout}/>}/>*/}
                             <Route path="/settings" element={<Protected Cmp={Settings} userDetails={userDb} logout={logout} /> } />
                         </Routes>
