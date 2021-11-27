@@ -99,7 +99,7 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
                         verified:"false",
                         emailid:userDetails.email,
                         availability:"available",
-                        dates:dates
+                        dates:[]
                     }
                 ).then(()=>{
                     setName("");
