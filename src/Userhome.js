@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import "./userhome.css";
 import {db} from "./firebase";
+import { Offline, Online } from "react-detect-offline";
 import {BrowserRouter as Router, Routes, Switch} from "react-router-dom";
 // import firebase from "firebase/compat";
 import logo from "./img/logo.png";
@@ -57,21 +58,28 @@ const Userhome =  ({userDetails, logout}) => {
         )
     } else {
         return (
-            <Router>
-                <div className="userhome">
-                    <Topnav profileurl={profileurl}/>
-                    <div className="userhome__body">
-                        <Routes>
-                            <Route path="/" exact element={<NormalHome userDetails={userDetails}/>}/>
-                            <Route path="/notification" element={<Notification userDetails={userDb}/>}/>
-                            {/*<Route path="/history" element={<BookingHistory userDetails={userDb}/>}/>*/}
-                            {/*<Route path="/settings" element={<Settings userDetails={userDb} logout={logout}/>}/>*/}
-                            <Route path="/settings" element={<Protected Cmp={Settings} userDetails={userDb} logout={logout} /> } />
-                        </Routes>
-                    </div>
-                    <Navbar/>
-                </div>
-            </Router>
+            <>
+                <Online>
+                    <Router>
+                        <div className="userhome">
+                            <Topnav profileurl={profileurl}/>
+                            <div className="userhome__body">
+                                <Routes>
+                                    <Route path="/" exact element={<NormalHome userDetails={userDetails}/>}/>
+                                    <Route path="/notification" element={<Notification userDetails={userDb}/>}/>
+                                    {/*<Route path="/history" element={<BookingHistory userDetails={userDb}/>}/>*/}
+                                    {/*<Route path="/settings" element={<Settings userDetails={userDb} logout={logout}/>}/>*/}
+                                    <Route path="/settings" element={<Protected Cmp={Settings} userDetails={userDb} logout={logout} /> } />
+                                </Routes>
+                            </div>
+                            <Navbar/>
+                        </div>
+                    </Router>
+                </Online>
+                <Offline>
+                    <p>Your currently offline</p>
+                </Offline>
+            </>
         )
     }
 }
