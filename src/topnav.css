@@ -51,7 +51,7 @@ body{
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    object-fit: contain;
+    object-fit: cover;
 }
 .top .top__body .userhome__logo{
     width: 80%;

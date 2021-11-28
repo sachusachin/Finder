@@ -370,25 +370,3 @@ const NormalHome = ({userDetails}) => {
 }
 
 export default NormalHome;
-
-
-
-// <div className="button__div">
-//     <div
-//         className={
-//             userDb.availability === "available" &&
-//             "btns available__btn active" ||
-//             "btns available__btn"
-//         }
-//         onClick={availableHandler}
-//     >
-//         <p>Available</p>
-//     </div>
-//     <div className={
-//         userDb.availability === "unavailable" &&
-//         "btns unavailable__btn active" ||
-//         "btns unavailable__btn"
-//     } onClick={unavailableHandler}>
-//         <p>Un Available</p>
-{/*    </div>*/}
-{/*</div>*/}

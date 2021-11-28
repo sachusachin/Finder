@@ -20,4 +20,6 @@ const googlelogin = new firebase.auth.GoogleAuthProvider();
 
 const db = firebase.firestore();
 
-export {auth,googlelogin,db}
+const storage = firebase.storage
+
+export {auth,googlelogin,db,storage}

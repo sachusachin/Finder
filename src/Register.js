@@ -99,7 +99,8 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
                         verified:"false",
                         emailid:userDetails.email,
                         availability:"available",
-                        dates:[]
+                        dates:[],
+                        profileImage:userDetails.photoURL+"?access_token="+userDetails?.stsTokenManager?.accessToken
                     }
                 ).then(()=>{
                     setName("");

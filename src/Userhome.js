@@ -35,12 +35,16 @@ const Userhome =  ({userDetails, logout}) => {
                 const data = doc.data(); // Current User data from firebase ...
                 setUserDb(data);
             });
-        setProfileurl(userDetails.photoURL+"?access_token="+userDetails?.stsTokenManager?.accessToken)
+        console.log(userDb.profileImage)
     },[])
 
-    console.log("user docs : ",userDb)
-    console.log("user : ",userDetails.uid)
+    useEffect(()=>{
+        setProfileurl(userDb.profileImage)
+    })
 
+    console.log("user docs : ",userDb)
+    // console.log("user : ",userDetails.photoURL+"?access_token="+userDetails?.stsTokenManager?.accessToken)
+    console.log(userDb.profileImage)
 
     const userAvailableHandler = () => {
         setUseravailable(!useravailable)

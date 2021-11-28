@@ -320,6 +320,7 @@
     box-shadow: -7px 3px 30px 3px rgba(132,156,244,0.75);
     -webkit-box-shadow: -7px 3px 30px 3px rgba(132,156,244,0.75);
     -moz-box-shadow: -7px 3px 30px 3px rgba(132,156,244,0.75);
+    cursor: pointer;
 }
 .custom-input:focus {
     outline: none;
@@ -372,7 +373,7 @@
     transition: .1s ease-in-out;
     cursor: pointer;
 }
-.normalhome .schedule__div .schedule__button button:hover{
+.normalhome .schedule__div .schedule__button button:active{
     transform: scale(.97);
     box-shadow:inset 0 6px 6px rgba(0,0,0,0.1788888);
 }
