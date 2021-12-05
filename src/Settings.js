@@ -26,6 +26,15 @@ const Settings = ({userDetails,logout}) => {
 
     const [phonenumber,setNumber]=useState(userDetails.phonenumber);
 
+    const [work,setWork] = useState(userDetails.work)
+
+//-----------------  upade button state ---------------------------------- //
+
+    const [namebtnState,setnameBtnState] = useState(false)
+    const [addressbtnState,setaddresssetBtnState] = useState(false)
+    const [genderbtnState,setgenderetBtnState] = useState(false)
+    const [profbtnState,setprofbtnState] = useState(false)
+
     useEffect(()=>{
         window.scroll(0,0)
 
@@ -136,6 +145,7 @@ const Settings = ({userDetails,logout}) => {
 
     const usernameHandler = (e) => {
         const namevalue = e.target.value.trim()
+        var nameErr = "yes"
         setName(namevalue)
         if (namevalue===""){
             setNameError("Invalid UserName")
@@ -157,56 +167,34 @@ const Settings = ({userDetails,logout}) => {
             })
             if(al===0){
                 setNameError("")
+                nameErr=""
             }else{
                 setNameError("username Already exist")
             }
         }else{
             setNameError("")
+            nameErr=""
         }
-    }
 
-    const mobilenumberHandler = (e) => {
-        const numbervalue = e.target.value.trim()
-        setNumber(numbervalue)
-        if (numbervalue===""){
-            setErrormsg("Invalid Mobilenumber")
-        }else if (!(/^\d{10}$/.test(numbervalue))){
-            setErrormsg("Mobilenumber must be 10 numbers")
-        }else if(numbervalue){
-            console.log("inside mother fucker!!!!!")
-            let al = 0
-            usernames.map((usermobile)=>{
-                if(usermobile.phonenumber === numbervalue){
-                    setErrormsg("Mobilenumber Already exist")
-                    al+=1
-                }
-            })
-
-            if(al===0){
-                setErrormsg("")
-            }else{
-                setErrormsg("Mobilenumber Already exist")
-            }
+        if((namevalue.toLowerCase() !== userDetails.name.toLowerCase()) && nameErr===""){
+            setnameBtnState(true)
         }else{
-            setErrormsg("")
+            setnameBtnState(false)
         }
     }
+
     //
-    // const workHandler = (e) => {
-    //     const workvalue = e.target.value
-    //     setWork(workvalue)
-    //     worksData.map((data)=>{
-    //         if(data.toLocaleLowerCase().trim()!==work.toLocaleLowerCase()){
-    //             setErrormsg("Enter valid Profession")
-    //             document.querySelector(".form3__next__btn").style.pointerEvents="none"
-    //             document.querySelector("#work").style.border="1px solid red"
-    //         }else{
-    //             setErrormsg("")
-    //             document.querySelector(".form3__next__btn").style.pointerEvents="all"
-    //             document.querySelector("#work").style.border="1px solid green"
-    //         }
-    //     })
-    // }
+    const workHandler = (e) => {
+        const workvalue = e.target.value
+        setWork(workvalue)
+        worksData.map((data)=>{
+            if(data.toLocaleLowerCase().trim()!==work.toLocaleLowerCase()){
+                setErrormsg("Enter valid Profession")
+            }else{
+                setErrormsg("")
+            }
+        })
+    }
     //
     // const cityHandler = (e) => {
     //     const cityvalue = e.target.value
@@ -226,6 +214,7 @@ const Settings = ({userDetails,logout}) => {
     //
     const addressHandler = (e) => {
         const addressvalue = e.target.value.trim()
+        var addressErr = "yes";
         setAddress(addressvalue)
         if (addressvalue===""){
             setAddressError("Invalid Address")
@@ -237,7 +226,15 @@ const Settings = ({userDetails,logout}) => {
             setAddressError("Address must be less than 50 characters")
         }else{
             setAddressError("")
+            addressErr=""
         }
+
+        if((addressvalue.toLowerCase() !== userDetails.address.toLowerCase()) && addressErr===""){
+                setaddresssetBtnState(true)
+        }else{
+            setaddresssetBtnState(false)
+        }
+
     }
 
     const genderHandler =(event)=>{
@@ -247,6 +244,93 @@ const Settings = ({userDetails,logout}) => {
         }else if(gen === "FeMale"){
             setGender("female")
         }
+        if(gen.toLowerCase() !== userDetails.gender){
+            setgenderetBtnState(true)
+        }else{
+            setgenderetBtnState(false)
+        }
+    }
+
+    const selectHandler = (event) => {
+        setWork(event.target.innerText.trim())
+        setprofbtnState(true)
+        setErrormsg("")
+    }
+
+    const detailsUpdateHandler = async (event) => {
+      const value  = event.target.value
+        console.log(googleDetails)
+        const checkDocs = db.doc(`users/${googleDetails}`);
+
+        const snapshot = await checkDocs.get();
+
+        if(value === "username"){
+
+            if (snapshot.exists){
+                try{
+                    checkDocs.update({
+                            name:name
+                        }
+                    ).then(()=>{
+                        // alert("success");
+                        ImageMessage("Updated successfully");
+                        setTimeout(()=> document.querySelector(".info__text").style.animation="",4000)
+                        setnameBtnState(false)
+                    })
+                }catch (error){
+                    console.log("Error database : ",error);
+                }
+            }
+        }else if(value === "address"){
+            if (snapshot.exists){
+                try{
+                    checkDocs.update({
+                            address:address
+                        }
+                    ).then(()=>{
+                        // alert("success");
+                        ImageMessage("Updated successfully");
+                        setTimeout(()=> document.querySelector(".info__text").style.animation="",4000)
+                        setnameBtnState(false)
+                    })
+                }catch (error){
+                    console.log("Error database : ",error);
+                }
+            }
+        }else if(value === "gender"){
+            if (snapshot.exists){
+                try{
+                    checkDocs.update({
+                            gender:gender
+                        }
+                    ).then(()=>{
+                        // alert("success");
+                        ImageMessage("Updated successfully");
+                        setTimeout(()=> document.querySelector(".info__text").style.animation="",4000)
+                        setgenderetBtnState(false)
+                    })
+                }catch (error){
+                    console.log("Error database : ",error);
+                }
+            }
+        }else if(value === "profession"){
+            if (snapshot.exists){
+                try{
+                    checkDocs.update({
+                            work:work
+                        }
+                    ).then(()=>{
+                        // alert("success");
+                        ImageMessage("Updated successfully");
+                        setTimeout(()=> document.querySelector(".info__text").style.animation="",4000)
+                        setprofbtnState(false)
+                    })
+                }catch (error){
+                    console.log("Error database : ",error);
+                }
+            }
+        }
+
     }
 
     return (
@@ -264,17 +348,29 @@ const Settings = ({userDetails,logout}) => {
             </div>
             <div className="details">
                 <Input disabled={false} type={"text"} title={"Username"} value={name} handler={usernameHandler} errormsg={nameError}/>
+                <Button handler={detailsUpdateHandler} value={'username'} state={namebtnState}/>
 
-                <Input disabled={true} type={"text"} title={"Phone Number"} value={phonenumber}  errormsg={errormsg}/>
+                <Input disabled={true} type={"text"} title={"Phone Number"} value={phonenumber}  />
 
                 <Input disabled={true} type={"email"} title={"Email"} value={userDetails.emailid}/>
 
-                <Input disabled={true} type={"text"} title={"Profession"} value={userDetails.work}/>
+                <Input
+                    disabled={false}
+                    type={"text"}
+                    title={"Profession"}
+                    value={work}
+                    handler={workHandler}
+                    errormsg={errormsg}
+                    selectHandler={selectHandler}
+                    work={work}
+                    userDetails={userDetails.work}
+                />
 
+                <Button handler={detailsUpdateHandler} value={'profession'} state={profbtnState}/>
                 <Input disabled={true} type={"text"} title={"City"} value={userDetails.city}/>
 
                 <Input disabled={false} type={"text"} title={"Address"} value={address} handler={addressHandler} errormsg={addressError}/>
-
+                <Button handler={detailsUpdateHandler} value={'address'} state={addressbtnState}/>
                 <div className="input__container radio">
                     <div className="head">
                         <p>Gender</p>
@@ -288,9 +384,11 @@ const Settings = ({userDetails,logout}) => {
                         </div>
                     </div>
                 </div>
-
+                <Button handler={detailsUpdateHandler} value={"gender"} state={genderbtnState}/>
             </div>
-            <button onClick={logout}>logout</button>
+            <div className="log__out">
+                <button onClick={logout} className="settings__logout"><i className="far fa-sign-out"> </i>   logout</button>
+            </div>
         </div>
     )
 }
@@ -298,7 +396,7 @@ const Settings = ({userDetails,logout}) => {
 export default Settings;
 
 
-export const Input = ({title,type,value,disabled,handler,errormsg})=>{
+export const Input = ({title,type,value,disabled,handler,errormsg,selectHandler,work,userDetails})=>{
     return(
         <div className="input__container">
             <div className="head">
@@ -307,9 +405,32 @@ export const Input = ({title,type,value,disabled,handler,errormsg})=>{
             <div className="input">
                 <input type={type} value={value} disabled={disabled} onChange={handler}/>
             </div>
+            {
+                (work!==userDetails && !worksData.includes(work) ) &&
+
+                <ul className="works__ul">{
+                    worksData.map((data)=>{
+                        if(data.toLocaleLowerCase().trim().includes(work.toLocaleLowerCase().trim())){
+                            return(
+                                <li key={data} onClick={selectHandler}>{data}</li>
+                            )
+                        }else if(work===""){
+                            return <>hi</>
+                        }
+                    })
+                }</ul>
+            }
             <div className="error__message">
                 <p>{errormsg}</p>
             </div>
+        </div>
+    )
+}
+
+export const Button =({handler,value,state})=>{
+    return(
+        <div className={state&&"details__update active"||"details__update"}>
+            <button className="update__btn" onClick={handler} value={value}>Update</button>
         </div>
     )
 }

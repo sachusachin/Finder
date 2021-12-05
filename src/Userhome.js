@@ -17,8 +17,6 @@ import {doc, getDoc} from "@firebase/firestore";
 import Protected from "./Protected";
 // import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-
-
 const Userhome =  ({userDetails, logout}) => {
 
     const [userDb, setUserDb] = useState("");

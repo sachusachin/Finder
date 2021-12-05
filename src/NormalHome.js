@@ -220,7 +220,8 @@ const NormalHome = ({userDetails}) => {
                         }
                     ).then(()=>{
                         dateMessage("UPDATED","green");
-                        setTimeout(()=> document.querySelector(".schedule__input__info.active").style.animation="",4000)
+                        const doc = document.querySelector(".schedule__input__info.active")
+                        setTimeout(()=>{doc !==null && (doc.style.animation="")},3000)
                         console.log("user dates stored : ",userDb.dates);
                     })
                 }catch (error){
