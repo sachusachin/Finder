@@ -173,18 +173,18 @@ const Settings = ({userDetails,logout}) => {
             }
         }else{
             setNameError("")
-            nameErr=""
-        }
+          }
 
-        if((namevalue.toLowerCase() !== userDetails.name.toLowerCase()) && nameErr===""){
-            setnameBtnState(true)
+            if((namevalue.toLowerCase() !== userDetails.name.toLowerCase()) && nameErr===""){
+                setnameBtnState(true)
         }else{
             setnameBtnState(false)
         }
-    }
+        }
+
 
     //
-    const workHandler = (e) => {
+        const workHandler = (e) => {
         const workvalue = e.target.value
         setWork(workvalue)
         worksData.map((data)=>{

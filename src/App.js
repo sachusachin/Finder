@@ -7,12 +7,19 @@ import {auth, googlelogin,db} from "./firebase";
 import Home from "./Home";
 import Signin from "./Signin";
 import { useNavigate } from 'react-router';
+import Bookinghome from "./Bookinghome";
 
 function App() {
     const [user,setUser] = useState(false);
     const [olduser,setOlduser]=useState(false);
     // const[localUser,setLocalUser] = useState(false);
     const [userstate,setUserstate] = useState("loading");
+
+    const [bookingState,setBookingstate] = useState(false)
+
+    const bookingstateHandler = () => {
+      setBookingstate(true)
+    }
 
 
     useEffect(()=>{
@@ -102,10 +109,16 @@ function App() {
                 <Home logout={logout} userDetails={user} userstate={userstate} olduser={olduser}/>
             </div>
         )
-    }else {
+    }else if(user===false && bookingState===true){
         return (
             <div>
-                <Signin googleLogin={googleLogin}/>
+                <Bookinghome logout={logout}/>
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <Signin googleLogin={googleLogin} bookingstateHandler={bookingstateHandler}/>
             </div>
         )
     }
