@@ -12,6 +12,7 @@ import femaleimg from './img/female.png';
 import addressimg from './img/address.png';
 import {worksData,cityNames} from "./Datas";
 import Loding from "./Loding";
+import firebase from "firebase/compat";
 // import haversine from 'haversine-distance';
 // import Loding from "./Loding";
 // import {set} from "firebase/firebase-database";
@@ -100,6 +101,8 @@ const Register = ({logout,userDetails,userstate,olduser}) => {
                         emailid:userDetails.email,
                         availability:"available",
                         dates:[],
+                        userid :userDetails.uid,
+                        logintime:new Date(),
                         profileImage:userDetails.photoURL+"?access_token="+userDetails?.stsTokenManager?.accessToken
                     }
                 ).then(()=>{

@@ -10,6 +10,7 @@ import Filter from "./Filter";
 import {auth, db, googlelogin} from "./firebase";
 import DatePicker from "react-multi-date-picker";
 import {cityNames, worksData} from "./Datas";
+import firebase from "firebase/compat";
 
 
 
@@ -35,6 +36,12 @@ function Bookinghome() {
 
     const [currentView,setCurrentView] = useState("")
 
+    const  [dbBooking,setDbbooking] = useState([])
+
+    const [currentwork,setCurrentwork] = useState("")
+
+    const [profileurl,setProfileurl] = useState("")
+
     const filterStateHandler = () => {
         window.scrollTo(0,0)
       setFilterstate(!filterState)
@@ -47,6 +54,9 @@ function Bookinghome() {
         console.log(dbDetails)
     },[])
 
+    useEffect(()=>{
+        setProfileurl(bookuser.photoURL+"?access_token="+bookuser?.stsTokenManager?.accessToken)
+    })
 
 
     const searchHandler = () => {
@@ -54,7 +64,11 @@ function Bookinghome() {
         var tempArr1=[]
         var tempArr2=[]
         var tempArr3 =[]
-        var cou = 0
+        var c1 = 0
+        var c2 = 0
+        var c3 = 0
+        var c4 = 0
+
         const str = document.querySelector(".rmdp-input").value
         const dateStrings = str.split("/").reverse().join("-");
         console.log(typeof (dateStrings))
@@ -65,19 +79,28 @@ function Bookinghome() {
             tempArr1=[]
             tempArr2=[]
             tempArr3=[]
+            c2 = 0
+            c3 = 0
+            c4 = 0
             dbDetails.map(worker => {
                 if (worker.availability !== "unavailable" && worker.verified !== "false" && worker.work === work) {
                     console.log(worker)
                     tempArr?.push(worker)
+                    c1+=1
                    return setSearchresult(tempArr)
-
                 }
             })
+            if(c1===0){
+                setSearchresult([])
+            }
         }
         if (city !== "" && dateStrings !== "") {
             tempArr=[]
             tempArr2=[]
             tempArr3=[]
+            c1 = 0
+            c3 = 0
+            c4 = 0
             console.log("c d enter : ",dbDetails)
             dbDetails.map(worker => {
                 if (worker.availability !== "unavailable" && worker.verified !== "false" && worker.work === work ) {
@@ -87,33 +110,47 @@ function Bookinghome() {
                             console.log(date)
                             tempArr1?.push(worker)
                             console.log(tempArr1)
+                            c2+=1
                             setSearchresult(tempArr1)
                         })
                     }
                 }
             })
+            if(c2===0){
+                setSearchresult([])
+            }
         }
         if (city !== "" && dateStrings === "") {
             console.log("c n d enter : ",dbDetails)
             tempArr=[]
             tempArr1=[]
             tempArr3=[]
+            c1 = 0
+            c2 = 0
+            c4 = 0
             dbDetails.map(worker => {
                 if (worker.availability !== "unavailable" && worker.verified !== "false" && worker.work === work) {
                     console.log("Out : ",worker.city)
                     if(worker.city.toLowerCase().includes(city.toLowerCase())){
                         console.log("In : ",worker.city)
                         tempArr2.push(worker)
+                        c3+=1
                         setSearchresult(tempArr2)
                     }
                 }
             })
+            if(c3===0){
+                setSearchresult([])
+            }
         }
         if (city === "" && dateStrings !== "") {
             console.log("c enter d n : ",dbDetails)
             tempArr=[]
             tempArr1=[]
             tempArr2=[]
+            c1 = 0
+            c2 = 0
+            c3 = 0
             dbDetails.map(worker => {
                 console.log(worker.dates)
                 if(worker.availability === "available" && worker.verified !== "false" && worker.work === work) {
@@ -121,10 +158,14 @@ function Bookinghome() {
                     worker.dates.filter(date => date.includes(dateStrings)).map(date => {
                         tempArr3?.push(worker)
                         console.log(tempArr3)
+                        c4+=1
                         setSearchresult(tempArr3)
                     })
                 }
             })
+            if(c4===0){
+                setSearchresult([])
+            }
         }
         setFilterstate(false)
     }
@@ -134,8 +175,6 @@ function Bookinghome() {
     // today.setDate(today.getDate() + 1)
 
     const [dates, setDates] = useState([today])
-
-
     useEffect(()=>{
         console.log("Date ; ",today)
     },[])
@@ -160,8 +199,6 @@ function Bookinghome() {
 
 
 
-
-    
     const viewHandler = (e) => {
         setCurrentView(e.target.value)
         console.log(e.target.value)
@@ -205,10 +242,66 @@ function Bookinghome() {
         }
     }
 
+
+
+    useEffect(()=>{
+        db.collection(`booking`).onSnapshot(snapshot =>
+            (setDbbooking(snapshot.docs.map(doc => doc.data())))
+        )
+        console.log(dbBooking)
+    },[]);
+
+
+    // useEffect(()=>{
+    //     dbDetails.map((detail)=>{
+    //         if(detail.userid===currentView){
+    //             setCurrentwork(detail.work)
+    //         }
+    //     })
+    //
+    // },[currentView, dbDetails])
+
+    const bookHandler = async () => {
+
+        const checkDocs = db.doc(`booking/${currentView}`);
+        console.log(bookuser.uid," ",work,"hi")
+
+        const snapshot = await checkDocs.get();
+
+        if (snapshot.exists){
+            try {
+                await checkDocs
+                    .collection(`${work}`)
+                    .doc(`${bookuser.uid}`)
+                    .update({
+                    bookingtime:new Date(),
+                        email:bookuser.email
+                }).then(()=>alert("Booked"))
+            }catch (err){
+                console.log(err)
+            }
+        }
+        if(!snapshot.exists){
+            try {
+                await checkDocs
+                    .collection(`${work}`)
+                    .doc(`${bookuser.uid}`)
+                    .set({
+                        bookingtime:new Date(),
+                        email:bookuser.email
+                    }).then(()=>alert("Booked"))
+            }catch (err){
+                console.log(err)
+            }
+        }
+
+    }
+
+
     return(
         <BrowserRouter>
             <div className="bookinghome">
-                <Topnav profileurl={userLogo}/>
+                <Topnav profileurl={bookuser?profileurl:userLogo}/>
                 <div className="bookinghome__body">
                     {
                         filterState===true?<div className="dates__picker__container">
@@ -293,6 +386,7 @@ function Bookinghome() {
                     <div className="search__result">
                         {
                             searchResult!==[] &&
+
                             searchResult.map(result=>{
                                 return(
                                     <div className="card" id={result.name}>
@@ -316,17 +410,14 @@ function Bookinghome() {
                                                     bookuser === false &&
                                                     <button onClick={unlockHandler}>Unlock</button>
                                                     ||
-                                                    <button onClick={viewHandler} value={result.name}>View</button>
+
+                                                    <button onClick={viewHandler} value={result.userid}>View</button>
                                                 }
                                             </div>
                                         </div>
                                     </div>
                                 )
                             })
-                            ||
-                            <div>
-                                no result
-                            </div>
                         }
                     </div>
                     {
@@ -337,7 +428,7 @@ function Bookinghome() {
                     }
                 </div>
                 {
-                    viewProfile&&<Viewprofile  user={currentView} closeHandler={closeHandler} dbDetails={dbDetails}/>
+                    viewProfile&&<Viewprofile  user={currentView} closeHandler={closeHandler} dbDetails={dbDetails} bookHandler={bookHandler}/>
                 }
             </div>
         </BrowserRouter>
@@ -347,7 +438,9 @@ function Bookinghome() {
 
 export default Bookinghome;
 
-export function Viewprofile ({user,closeHandler,dbDetails}){
+//-----------------------------  View profile component --------------------- //
+
+export function Viewprofile ({user,closeHandler,dbDetails,bookHandler}){
 
     console.log(user)
 
@@ -355,9 +448,10 @@ export function Viewprofile ({user,closeHandler,dbDetails}){
 
     useEffect(()=>{
         dbDetails.map(detail=>{
-            (detail.name===user )&& setTempuser(detail)
+            (detail.userid===user )&& setTempuser(detail)
         })
     })
+
 
     return(
         <div className="viewprofile">
@@ -375,7 +469,7 @@ export function Viewprofile ({user,closeHandler,dbDetails}){
                         <p className="viewprofile__top__details__name"><span>{tempUser?.name}</span></p>
                         <p className="viewprofile__top__details__work">{tempUser?.work}</p>
                         <div className="viewprofile__top__details__book">
-                            <button>BOOK</button>
+                            <button onClick={bookHandler}>BOOK</button>
                         </div>
                     </div>
                 </div>
