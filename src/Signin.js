@@ -89,9 +89,7 @@ const Signin = ({googleLogin,bookingstateHandler}) => {
                                 </div>
                             </div>
                             <div className="page2__text">
-                                <p>Lorem ipsum dolor sit amet,
-                                    consectetur adipisicing elit.
-                                    A aperiam at deserunt dignissimos</p>
+                                <p>"One man's wage increase is another man's price increase"</p>
                             </div>
                             <div className="page2__type">
                                 <div className="type__worker" onClick={workerHandler}>
@@ -106,8 +104,7 @@ const Signin = ({googleLogin,bookingstateHandler}) => {
                                         </div>
                                         <div className="worker__text__content">
                                             <p>
-                                                Lorem ipsum dolor sit amet,
-                                                consectetur adipisicing elit.
+                                                Craete & Manage Your    Worker Profile
                                             </p>
                                         </div>
                                     </div>
@@ -124,8 +121,7 @@ const Signin = ({googleLogin,bookingstateHandler}) => {
                                         </div>
                                         <div className="user__text__content">
                                             <p>
-                                                Lorem ipsum dolor sit amet,
-                                                consectetur adipisicing elit.
+                                                Book Workers For Your Work and finish your work fast
                                             </p>
                                         </div>
                                     </div>
